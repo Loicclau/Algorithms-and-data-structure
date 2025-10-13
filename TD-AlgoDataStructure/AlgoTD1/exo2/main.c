@@ -3,7 +3,6 @@
 #include <stdbool.h>
 #include <time.h>
 #include "PrimeNumbers.h"
-
 int main() {
     int n = 40000;
     long long int result1, result2;
