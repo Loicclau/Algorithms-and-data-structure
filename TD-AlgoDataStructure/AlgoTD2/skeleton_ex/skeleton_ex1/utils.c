@@ -12,7 +12,7 @@ bool is_sorted_nondecreasing(int *arr, int n)
     return true; //le tableau est trié
 }
 
-// return smallest value between a and b
+// return le min
 int min_int(int a, int b)
 {
     if (a < b) {

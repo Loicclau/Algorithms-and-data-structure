@@ -9,7 +9,7 @@ int linear_search(int *arr, int n, int target)  // que si cest PAS trier
     // linear search on array, return index
     for (int i = 0; i < n; i++) {
         if (arr[i] == target) {
-            return i;  // Return index if found
+            return i;  // Return index si trouvé
         }
     }
     return -1;
