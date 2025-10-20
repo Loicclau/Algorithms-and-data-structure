@@ -4,6 +4,8 @@
 #include "sort.h"
 #include "utils.h"
 
+#define N 210
+
 int main(void)
 {
 
@@ -29,8 +31,63 @@ int main(void)
         191, 192, 193, 194, 195, 196, 197, 198, 199, 200,
         58, 14, 99, 72, 6, 45, 91, 32, 77, 8
     };
-    // implement main here
-    // create array example using malloc
-    // use sorting algorithms and compare runtime
+    
+    clock_t start, end;
+    double time_taken;
+
+    // Créer un tableau dynamique pour copier les données
+    int *arr = (int *)malloc(N * sizeof(int));
+    if (!arr) {
+        printf("Erreur allocation mémoire !\n");
+        return 1;
+    }
+
+    // Selection Sort
+    copy_array(tableau, arr, N); // copie donne tab sur arr
+
+        if (is_sorted_nondecreasing(arr, N)){
+            printf("Tableau trier correctement\n");
+
+        }else{
+            printf("Tableau pas triee normal pas de tri fait encore\n");
+        }
+    start = clock();
+    selection_sort(arr, N);
+    end = clock();
+    time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+    printf("Selection sort terminer en %.6f secondes\n", time_taken);
+    if (is_sorted_nondecreasing(arr, N))
+        printf("Tableau trier correctement avec selection_sort\n\n");
+
+
+    // Bubble Sort
+    copy_array(tableau, arr, N);
+    start = clock();
+    bubble_sort(arr, N);
+    end = clock();
+    time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+    printf("Bubble sort terminer en %.6f secondes\n", time_taken);
+
+    if (is_sorted_nondecreasing(arr, N))
+        printf("Tableau triee correctement avec bubble_sort\n\n");
+
+
+    
+    // Insertion Sort
+    copy_array(tableau, arr, N);
+    start = clock();
+    insertion_sort(arr, N);
+    end = clock();
+    time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+    printf("Insertion sort terminer en %.6f secondes\n", time_taken);
+
+    if (is_sorted_nondecreasing(arr, N))
+        printf("Tableau trier correctement avec insertion_sort\n\n");
+
+
+
+
+
+    free(arr);
     return 0;
 }
