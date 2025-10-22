@@ -2,13 +2,13 @@
 #include "sort.h"
 #include "utils.h"
 
-void selection_sort(int *arr, int n)
+void selection_sort(int *arr, int n) //Temps : O(n^2)
 {
     for (int i = 0; i < n - 1; i++)
     {
         int min_index = i; 
 
-        // on cherche le plus petit
+        // cherche le plus petit
         for (int j = i + 1; j < n; j++)
         {
             if (arr[j] < arr[min_index])
@@ -57,7 +57,9 @@ void bubble_sort(int *arr, int n) { //Temps : O(n^2) horribleee
 }
 
 
-
+// divise tout, trie et fusionne
+//arr = [2, 5, 8 | 1, 3, 9]
+//          i=l      j=m+1
 void merge(int *arr, int *tmp, int l, int m, int r)
 {
     int i = l;      // début du premier sous-tableau
@@ -73,22 +75,23 @@ void merge(int *arr, int *tmp, int l, int m, int r)
             tmp[k++] = arr[j++];
     }
 
-    // copier les éléments restants du premier sous-tableau
+    // copie les éléments restants du premier sous-tableau
     while (i <= m)
         tmp[k++] = arr[i++];
 
-    // copier les éléments restants du second sous-tableau
+    // copie les éléments restants du second sous-tableau
     while (j <= r)
         tmp[k++] = arr[j++];
 
-    // copier tmp dans arr
+    // copie tmp(le résultat) dans arr
     for (i = l; i <= r; i++)
         arr[i] = tmp[i];
 }
 
+//tableau temporaire recursif
 void mergesort_rec(int *arr, int *tmp, int l, int r)
 {
-    if (l >= r) // base case : un élément ou moins
+    if (l >= r) // arr deja triee
         return;
 
     int m = l + (r - l) / 2;
@@ -97,28 +100,51 @@ void mergesort_rec(int *arr, int *tmp, int l, int r)
     mergesort_rec(arr, tmp, l, m);
     mergesort_rec(arr, tmp, m + 1, r);
 
-    // fusionner les deux moitiés
+    // fusionne les deux moitiés
     merge(arr, tmp, l, m, r);
 }
 
 void merge_sort(int *arr, int n)
 {
     if (!arr || n <= 1)
-        return;
+        return; //on trie pas
     int *tmp = (int *)malloc((size_t)n * sizeof(int));
     if (!tmp)
         return;
     mergesort_rec(arr, tmp, 0, n - 1);
     free(tmp);
 }
+
+
+
 int partition(int *arr, int l, int r)
 {
-    // partition function
+    int pivot = arr[r]; // Dernier en Pivot
+    int i = l - 1;
+    for (int j = l; j <= r - 1; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            // swap arr[i] and arr[j] si plus petit que le pivot
+            int tmp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = tmp;
+        }
+    }
+    // place bien le pivot 
+    int tmp = arr[i + 1];
+    arr[i + 1] = arr[r];
+    arr[r] = tmp;
+    return i + 1;
 }
 
+// en recursive
 void quick_sort_rec(int *arr, int l, int r)
 {
-    // recursive steps of quick sort
+    if (l < r) { // si il y a 2 elements
+        int p = partition(arr, l, r);  // position du pivot
+        quick_sort_rec(arr, l, p-1);     // tri de gauche
+        quick_sort_rec(arr, p+1, r);     // tri de droite
+    }
 }
 
 void quick_sort(int *arr, int n)

@@ -52,7 +52,7 @@ int main(void)
     double cpu_time_used;
 
     int index;
-    // --- Premier tableau ---
+    // --- Premier tableau non sort donc linear---
     printf("Tableau 1 :\n");
     if (is_sorted_nondecreasing(arr, n1)) {
         index = jump_search(arr, n1, target);
@@ -80,7 +80,7 @@ int main(void)
     
 
 
-    // --- Deuxième tableau ---
+    // --- Deuxième tableau sort ont fait les autres ---
     printf("\nTableau 2 :\n");
     if (is_sorted_nondecreasing(arr_sorted, n2)) {
         start = clock();

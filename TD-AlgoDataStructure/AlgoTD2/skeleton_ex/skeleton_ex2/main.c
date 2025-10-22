@@ -60,6 +60,16 @@ int main(void)
         181, 182, 1483, 1844, 185, 186, 187, 1838, 48494, 
         1591, 192, 193, 194, 195, 196, 197, 1968, 194294,
         58, 14, 959, 72, 656, 45, 9156, 325, 7744583, 34,
+        1139, 1128, 1435, 1143, 1475, 1466, 1728, 188531,
+        1853, 1545732, 541655, 155434, 41561, 1357, 1258,
+        1368, 2473, 1963, 345, 45, 136, 162, 2468, 12259,
+        762, 343, 4999, 71529, 78868, 55674, 852, 561995, 
+        447, 444, 568, 999, 7777, 8853, 124, 7647, 18819,
+        143, 33354, 122, 109, 89076, 78899, 226644, 2235,
+        11134, 24456, 3556, 356, 4442, 13368, 169, 93875,
+        3507, 99989, 55039, 1734, 459767, 175556, 174467,
+        33059, 344595, 183, 30587, 45039, 186, 187, 3086,
+        236505, 23005, 224958, 348602, 5475, 767676, 989,
     };
     
     clock_t start, end;
@@ -77,10 +87,10 @@ int main(void)
 
         if (is_sorted_nondecreasing(arr, N)){
             printf("Tableau trier correctement\n");
-
         }else{
-            printf("Tableau pas triee normal pas de tri fait encore\n");
+            printf("Tableau pas triee normal pas de tri encore fait\n");
         }
+
     start = clock();
     selection_sort(arr, N);
     end = clock();
@@ -126,11 +136,16 @@ int main(void)
     if (is_sorted_nondecreasing(arr, N))
         printf("Tableau trier correctement avec merge_sort\n\n");
 
+    // quick sort
+    copy_array(tableau, arr, N);
+    start = clock();
+    quick_sort(arr, N);
+    end = clock();
+        time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+    printf("quick sort terminer en %.9f secondes\n", time_taken);
 
-
-
-
-
+    if (is_sorted_nondecreasing(arr, N))
+        printf("Tableau trier correctement avec quick_sort\n\n");
 
 
     free(arr);
